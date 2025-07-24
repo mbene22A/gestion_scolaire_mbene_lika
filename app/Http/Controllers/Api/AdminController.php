@@ -60,13 +60,13 @@ class AdminController extends Controller
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('nom', 'like', "%{$search}%")
-                  ->orWhere('prenom', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhere('prenom', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
             });
         }
 
         $users = $query->with(['enseignant', 'eleve.classe'])
-                      ->paginate($request->get('per_page', 15));
+            ->paginate($request->get('per_page', 15));
 
         return response()->json([
             'success' => true,
@@ -163,7 +163,7 @@ class AdminController extends Controller
         }
 
         $data = $request->only(['nom', 'prenom', 'email', 'role']);
-        
+
         if ($request->has('password')) {
             $data['password'] = Hash::make($request->password);
         }
